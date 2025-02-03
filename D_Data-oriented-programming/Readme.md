@@ -521,7 +521,7 @@ But you have another kind of pattern, called _record pattern_, that deconstructs
 ```java
 public void displayFlight(Flight flight) {
     switch(flight) {
-        case SimpleFlight(City from, City to) -> System.out.println(
+        case SimpleFlight(_, City from, City to) -> System.out.println(
                 "Flight from " + from.name() + " to " + to.name() +
                 ": price is now " + ((SimpleFlight)flight).price().price());
     };
@@ -530,12 +530,14 @@ public void displayFlight(Flight flight) {
 
 The `from` and `to` variables are called _pattern variables_. They are created by calling the corresponding accessors of your `SimpleFlight` record.
 
+Here you are not using the first component of the record, so you can ignore it using an _unnamed pattern_. 
+
 And since you can _nest_ record patterns, you can go one step further and write it in that way.
 
 ```java
 public void displayFlight(Flight flight) {
     switch (flight) {
-        case SimpleFlight(City(var from), City(var to)) -> System.out.println(
+        case SimpleFlight(_, City(var from), City(var to)) -> System.out.println(
               "Flight from " + from + " to " + to +
                     ": price is now " + ((SimpleFlight) flight).price().price());
     }
